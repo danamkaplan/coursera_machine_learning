@@ -6,6 +6,7 @@ function p = predict(Theta1, Theta2, X)
 % Useful values
 m = size(X, 1);
 num_labels = size(Theta2, 1);
+hidden_units1 = size(Theta1, 1);
 
 % You need to return the following variables correctly 
 p = zeros(size(X, 1), 1);
@@ -22,10 +23,17 @@ p = zeros(size(X, 1), 1);
 %
 
 
+% Add ones to the input layer and multiply to layer 2
+a1 = [ones(m, 1) X];
+z2 = sigmoid(a1*Theta1');
 
+% Add ones to z2 and multiply to a3
+a2 = [ones(m, 1), z2];
 
+% Apply the final layer and predict
+a3 = sigmoid(a2*Theta2');
 
-
+[max_prob, p] = max(a3, [], 2);
 
 
 
