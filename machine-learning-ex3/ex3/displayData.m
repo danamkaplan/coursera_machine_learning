@@ -49,11 +49,11 @@ for j = 1:display_rows
 end
 
 % Display Image
-h = imagesc(display_array, [-1 1]);
+h = imagesc(flipud(display_array), [-1, 1]); 
+drawnow;
 
 % Do not show axis
 axis image off
 
-drawnow;
 
 end
