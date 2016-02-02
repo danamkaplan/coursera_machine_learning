@@ -37,12 +37,24 @@ grad = zeros(size(theta));
 %
 
 
+% sum for y=1 portion
+left = -y'*log(sigmoid(X*theta));
 
+% sum for y=0 portion
+right = (1-y)'*log(1-sigmoid(X*theta));
 
+% compute grad before we set theta(1) and add reg
+grad = (1/m)*X'*(sigmoid(X*theta)-y);
 
+% adjust theta(1) to 0 because it will not affect bias
+theta(1) = 0;
+reg = (lambda/(2*m))*(theta'*theta); 
 
+% combine and scale by 1/m to give final cost
+J = (1/m)*(left-right)+reg;
 
-
+% one iteration of grad. descent after theta(1) = 0 and added the reg term
+grad = grad  + (lambda/m)*theta;
 
 
 % =============================================================
