@@ -42,13 +42,13 @@ Theta2_grad = zeros(size(Theta2));
 y_matrix = eye(num_labels)(y,:); 
 size(y_matrix)
 % a1 equals the X input matrix with a column of 1's added (bias units) as the first column.
-a1 = [ones([5000,1]) X];
+a1 = [ones([m,1]) X];
 % z2 equals the product of a1 and Θ1
 z2 = a1*Theta1';
 % a2 is the result of passing z2 through g()
 % Then add a column of bias units to a2 (as the first column).
 a2 = sigmoid(z2);
-a2 = [ones([5000,1]) a2];
+a2 = [ones([m,1]) a2];
 % z3 equals the product of a2 and Θ2
 z3 = a2*Theta2';
 % a3 is the result of passing z3 through g()
