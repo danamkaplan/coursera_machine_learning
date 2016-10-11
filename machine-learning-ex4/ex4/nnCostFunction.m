@@ -38,6 +38,34 @@ Theta2_grad = zeros(size(Theta2));
 %         variable J. After implementing Part 1, you can verify that your
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
+
+y_matrix = eye(num_labels)(y,:); 
+size(y_matrix)
+% a1 equals the X input matrix with a column of 1's added (bias units) as the first column.
+a1 = [ones([5000,1]) X];
+% z2 equals the product of a1 and Θ1
+z2 = a1*Theta1';
+% a2 is the result of passing z2 through g()
+% Then add a column of bias units to a2 (as the first column).
+a2 = sigmoid(z2);
+a2 = [ones([5000,1]) a2];
+% z3 equals the product of a2 and Θ2
+z3 = a2*Theta2';
+% a3 is the result of passing z3 through g()
+a3 = sigmoid(z3);
+
+% 3 - Compute the unregularized cost according to ex4.pdf (top of Page 5), 
+% using a3, your y_matrix, and m (the number of training examples). 
+% Note that the 'h' argument inside the log() function is exactly a3. 
+% Cost should be a scalar value. Since y_matrix and a3 are both matrices, 
+% you need to compute the double-sum.
+%
+% Remember to use element-wise multiplication with the log() function. Also, we're using the natural log, not log10().
+
+inner_cost = (-y_matrix).*log(a3)-(1-y_matrix).*log(1-a3);
+J = (sum(sum(inner_cost, 2)))/m;
+
+% Now you can run ex4.m to check the unregularized cost is correct, then you can submit this portion to the grader.
 %
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
