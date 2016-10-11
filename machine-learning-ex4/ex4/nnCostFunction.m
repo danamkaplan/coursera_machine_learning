@@ -40,7 +40,6 @@ Theta2_grad = zeros(size(Theta2));
 %         computed in ex4.m
 
 y_matrix = eye(num_labels)(y,:); 
-size(y_matrix)
 % a1 equals the X input matrix with a column of 1's added (bias units) as the first column.
 a1 = [ones([m,1]) X];
 % z2 equals the product of a1 and Θ1
@@ -66,6 +65,13 @@ inner_cost = (-y_matrix).*log(a3)-(1-y_matrix).*log(1-a3);
 J = (sum(sum(inner_cost, 2)))/m;
 
 % Now you can run ex4.m to check the unregularized cost is correct, then you can submit this portion to the grader.
+
+% Adding regularized term to cost
+Theta1_reg = sum(sum(Theta1(:,2:end).^2, 2));
+Theta2_reg = sum(sum(Theta2(:,2:end).^2, 2));
+reg =(lambda/(2*m))*(Theta1_reg + Theta2_reg);
+J = J + reg;
+
 %
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
